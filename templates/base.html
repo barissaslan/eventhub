@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    {% load custom_tags %}
+
+    {% url 'event:home' as home %}
+    {% url 'event:index' as event_index %}
+    {% url 'event:user_index' as user_event_index %}
+    {% url 'event:add' as event_add %}
+    {% url 'accounts:login' as login %}
+    {% url 'accounts:logout' as logout %}
+    {% url 'accounts:signup' as signup %}
+    {% url 'accounts:profile' as user_profile %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} EventHub {% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+    {% block extra_title %} {% endblock %}
+</head>
+<body>
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <!-- Logo -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'event:home' %}">
+                    <span style="color: #428bca"><strong>EventHub</strong></span>
+                </a>
+            </div>
+
+            <!-- Items -->
+            <div class="collapse navbar-collapse" id="topNavbar">
+
+                <!-- Browse Events -->
+                <ul class="nav navbar-nav">
+                    <li class="{% active request event_index %}"><a href="{{ event_index }}" style="color: #428bca"><strong>Browse Events</strong></a></li>
+                </ul>
+
+                <!-- Search Bar -->
+                <form class="navbar-form navbar-left" role="search" method="GET" action="">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search on events" value="{{ request.GET.q }}" >
+                        <span class="input-group-btn">
+                            <input class="btn btn-default" type="submit" value="Search" style="color: #428bca; font-weight: bold">
+                        </span>
+                    </div>
+                </form>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{% active request home %}"><a href="{{ home }}" style="color: #428bca"><strong>Home</strong></a></li>
+                    {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #428bca">
+                                <strong>{{ user.get_full_name }}</strong>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu myDropdownMenu">
+                                <li class="{% active request user_profile %}" ><a href="{{ user_profile }}" style="color: #428bca"><strong>My Profile</strong></a></li>
+                                <li class="{% active request user_event_index %}"><a href="{{ user_event_index }}" style="color: #428bca"><strong>My Events</strong></a></li>
+                                <li class="{% active request event_add %}"><a href="{{ event_add }}" style="color: #428bca"><strong>Create Event</strong></a></li>
+                                <li class="{% active request logout %}" ><a href="{{ logout }}" style="color: #428bca"><strong>Logout</strong></a></li>
+                            </ul>
+
+                        </li>
+
+                        <!-- Notifications -->
+                        <li class="dropdown notify-li">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #428bca">
+                                <span class="glyphicon glyphicon-flag"></span>
+                                <strong>Notifications</strong>
+                                {% if user.notifications.unread %}
+                                    <span class="badge">{{ user.notifications.unread.count }}</span>
+                                {% endif %}
+                            </a>
+
+                            <ul class="dropdown-menu notify-ul" aria-labelledby="dLabel">
+                                {% if user.notifications.unread %}
+                                    <a class="notify-a" href="#">
+                                        <li class="dropdown-notify-btn dropdown-notify-header">
+                                            View All
+                                        </li>
+                                    </a>
+                                    {% for notification in user.notifications.unread %}
+                                        <a href="{{ notification.actor.get_absolute_url }}?notify={{ notification.id }}">
+                                            <li class="dropdown-notify">
+                                                <div class="row caption-img">
+                                                    <div class="col-md-2">
+                                                        <img src="{{ notification.actor.image.url }}" class="round-img">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <p class="notify-title">{{ notification.message }}</p>
+                                                        <p class="notify-msg">{{ notification.message }}</p>
+                                                        <p class="notify-date">{{ notification.timestamp|timesince }} ago</p>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+                                        </a>
+                                    {% endfor %}
+
+                                {% else %}
+                                    <li class="dropdown-notify">
+                                        <p>You have not any notification.</p>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+
+                    {% else %}
+                        <li class="{% active request login %}" ><a href="{{ login }}" style="color: #428bca"><strong>Login</strong></a></li>
+                        <li class="{% active request signup %}" ><a href="{{ signup }}" style="color: #428bca"><strong>Signup</strong></a></li>
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar Finish -->
+
+
+    {% block body %}
+
+    {% endblock %}
+
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>

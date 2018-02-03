@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% if events %}
+        <div class="container">
+            <div class="col-sm-6 col-sm-offset-3">
+                {% for event in events %}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="thumbnail">
+                                {% if event.image %}
+                                   <a href="{% url 'event:detail' event.slug %}"><img src="{{ event.image.url }}" class="img-responsive"></a>
+                                {% endif %}
+                                <div class="caption">
+                                    <h2>
+                                        <a href="{% url 'event:detail' event.slug %}">{{ event.title }}</a>
+                                        {% if event.status == 'draft' %} <span style="color: #bf0000;"> | Draft</span> {% endif %}
+                                    </h2>
+                                    <p><span style="color: #2b669a">Organizer: <strong>{{ event.organizer_name }}</strong></span></p>
+                                    <hr>
+                                    <p>{{ event.description|safe|linebreaks|truncatewords:50 }}</p>
+                                    <p>
+                                        <a href="{% url 'event:detail' event.slug %}" class="btn btn-primary btn-sm" role="button">View</a>
+                                        {% if event.status == 'live' %}
+                                            <a href="{% url 'event:register' event.slug %}" class="btn btn-primary btn-sm" role="button">Register</a>
+                                        {% endif %}
+                                        {% if user == event.organizer %}
+                                            <a href="{% url 'event:edit' event.slug %}" class="btn btn-primary btn-sm" role="button">Edit</a>
+                                            <a href="{% url 'event:delete' event.slug %}" class="btn btn-primary btn-sm" role="button">Delete</a>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div style="text-align: center;">
+                    {% include 'event/pagination.html' %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <h2>There is no event.</h2>
+        </div>
+    {% endif %}
+
+{% endblock %}

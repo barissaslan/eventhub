@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+
+                {% include 'messages/success.html' %}
+
+                <div class="thumbnail">
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}" class="img-responsive">
+                    {% endif %}
+                    <div class="caption">
+                        <h1>
+                            {{ event.title }}
+                            {% if event.status == 'draft' %} <span style="color: #bf0000;">Draft</span> {% endif %}
+                        </h1>
+                        <p><span style="color: #2b669a">Organizer: <strong>{{ event.organizer_name }}</strong></span></p>
+                        <hr>
+                        <p>{{ event.description|safe|linebreaks }}</p>
+
+                        <br><br><hr>
+                        <p>
+                            {% if event.attendees.all %}
+                                <strong>Attendees: </strong>
+                                {% for attendee in event.attendees.all %}
+                                    {{ attendee.get_full_name }},
+                                {% endfor %}
+                            {% endif %}
+                        </p>
+                        <p>
+                            {% if event.status == 'live' %}
+                                <a href="{% url 'event:register' event.slug %}" class="btn btn-primary btn-sm" role="button">Register</a>
+                            {% endif %}
+                            {% if user == event.organizer %}
+                                <a href="{% url 'event:edit' event.slug %}" class="btn btn-primary btn-sm" role="button">Edit</a>
+                                <a href="{% url 'event:delete' event.slug %}" class="btn btn-primary btn-sm" role="button">Delete</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

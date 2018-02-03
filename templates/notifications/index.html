@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% if notifications %}
+        {% for notification in notifications %}
+            {{ notification.message }}<br>
+        {% endfor %}
+    {% else %}
+        You have not any new notifications.
+    {% endif %}
+
+{% endblock %}

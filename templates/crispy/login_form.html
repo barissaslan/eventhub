@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="col-sm-5 col-sm-offset-3">
+
+            {% include 'messages/success.html' %}
+
+            <h1>{{ title }}</h1>
+            <hr>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {{ form.media }}
+                <div class="text-right">
+                    <h4><a href="{% url 'accounts:signup' %}">Create an account.</a></h4>
+                </div>
+
+                <div>
+                    <input class="btn btn-primary" type="submit" name="live" value="{{ title }}">
+                </div>
+                <br><br>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

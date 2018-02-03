@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="col-sm-7 col-sm-offset-2">
+
+            {% include 'messages/success.html' %}
+
+            <h1>{{ title }}</h1>
+            <hr>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {{ form.media }}
+                <div>
+                    <input class="btn btn-primary" type="submit" name="live" value="{{ title }}">
+                </div>
+                <br><br>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

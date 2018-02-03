@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+    {% include 'messages/success.html' %}
+
+    <div class="container">
+        <div class="col-sm-7 col-sm-offset-2">
+            <h1>{{ title }}</h1>
+            <hr>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% crispy form %}
+                {{ form.media }}
+                <div>
+                    {% if status != 'live' %}
+                        <input class="btn btn-primary" type="submit" name="live" value="{{ primary }}">
+                        <input class="btn btn-default" type="submit" name="draft" value="Save">
+                    {% else %}
+                        <input class="btn btn-primary" type="submit" name="live" value="Save">
+                        <input class="btn btn-default" type="submit" name="cancel" value="Cancel">
+                    {% endif %}
+                </div>
+                <br><br>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

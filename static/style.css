@@ -1,0 +1,103 @@
+/*.myDropdownMenu li a*/
+/*{*/
+    /*color: #adadad!important;*/
+/*}*/
+/*.myDropdownMenu li a:hover*/
+/*{*/
+    /*color: #999999!important;*/
+/*}*/
+/*#postHeader {*/
+    /*color: #428bca;*/
+/*}*/
+/*.wrapper img{*/
+    /*margin-top: -20px;*/
+/*}*/
+/*#home-profile{*/
+    /*margin-top: 30px;*/
+/*}*/
+/*.comment {*/
+    /*margin: 20px 0px 20px 20px;*/
+/*}*/
+
+img.round-img{
+   width:75px;
+   height: 75px;
+}
+
+.notify-li {
+   display: inline-block;
+}
+
+.notify-ul {
+   min-width: 500px;
+   margin-top: 2px;
+}
+.dropdown-notify {
+   display: block;
+   padding: 10px 15px;
+}
+
+.dropdown-notify:hover {
+   background: #eee;
+}
+.dropdown-notify-btn {
+   border: 2px solid #00a99d;
+   border-radius: 5px;
+   padding: 8px 43px 8px 43px;
+   background: white;
+   text-transform: uppercase;
+   font-weight: 500;
+   color: #173e88;
+}
+.dropdown-notify-header {
+   color: white;
+   margin-top:-8px;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+   background: #347ab8;
+   font-weight: 700;
+}
+.dropdown-notify-header:hover {
+   background: #347ab8;
+   color: white;
+   text-decoration: none;
+}
+.notify-a {
+   color: #333;
+}
+.notify-a:hover {
+   color: #333;
+   text-decoration: none;
+}
+.badge {
+   background: #ff0000;
+   position: absolute;
+   left: -1px;
+   top: 4px;
+/* toggle for no messages*/
+/*    display: none;  */
+}
+.fa-envelope-o {
+   font-size: 18px;
+   position: relative;
+   top: 1px;
+   left: -3px;
+   margin-right: 2px;
+   color: #173e88;
+}
+.notify-title {
+   font-weight: 700;
+}
+.notify-message {
+   margin-bottom: 5px;
+}
+.notify-date {
+  margin-bottom: 0px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+
+/* CheckBox */
+
+
