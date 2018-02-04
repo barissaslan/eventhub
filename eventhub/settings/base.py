@@ -12,7 +12,7 @@ SECRET_KEY = '5w7+=x#j+jrl5l3!y!ve@v@layx02zhh%mxs7@w3w4%mw-#281'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['aslanbaris.com', 'www.aslanbaris.com']
 
 
 # Application definition
